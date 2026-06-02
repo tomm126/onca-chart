@@ -227,10 +227,17 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 #undo-toast.show{opacity:1;}
 
 @media(max-width:768px){
-  #main{overflow-x:auto;overflow-y:auto;display:block;}
-  #left-pane{width:var(--left-w);border-right:none;position:sticky;left:0;z-index:60;display:inline-flex;vertical-align:top;}
-  #scroll-pane{display:inline-block;vertical-align:top;overflow:visible;}
-  #gantt-inner{display:inline-flex;}
+  html,body{height:auto !important;overflow:auto !important;}
+  #main{overflow:visible !important;height:auto !important;flex:none;}
+  #left-pane{position:static;height:auto;overflow:visible !important;}
+  #left-header{overflow:visible !important;}
+  #left-rows{overflow:visible !important;height:auto !important;min-height:0 !important;}
+  #left-footer{position:static !important;}
+  .lp-group-rows{overflow:visible !important;}
+  .lp-group-inner{overflow:visible !important;}
+  .lp-group{overflow:visible !important;}
+  #scroll-pane{overflow:visible !important;flex:none;height:auto;}
+  #gantt-inner{height:auto;}
   .tb-btn.primary,#btn-add-member,#btn-filter,#btn-show-done,#btn-save,#btn-load{display:none;}
   #toolbar{padding:0 8px;gap:4px;}
   #legend{max-width:200px;}
