@@ -228,11 +228,11 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 
 @media(max-width:768px){
   html,body{height:auto !important;overflow:auto !important;}
-  #toolbar{position:fixed;top:0;left:0;right:0;z-index:300;padding:0 8px;gap:4px;}
+  #toolbar{position:fixed;top:0;left:0;right:0;z-index:999;padding:0 8px;gap:4px;}
   body{padding-top:var(--toolbar-h);}
   #main{overflow:visible !important;height:auto !important;flex:none;}
   #left-pane{position:static;height:auto;overflow:visible !important;}
-  #left-header{overflow:visible !important;position:sticky;top:var(--toolbar-h);z-index:100;background:var(--surface);}
+  #left-header{overflow:visible !important;}
   #left-rows{overflow:visible !important;height:auto !important;min-height:0 !important;}
   #left-footer{position:static !important;}
   .lp-group-rows{overflow:visible !important;}
@@ -240,7 +240,6 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
   .lp-group{overflow:visible !important;}
   #scroll-pane{overflow:visible !important;flex:none;height:auto;}
   #gantt-inner{height:auto;}
-  #date-header{position:sticky;top:var(--toolbar-h);z-index:100;}
   .tb-btn.primary,#btn-add-member,#btn-filter,#btn-show-done,#btn-save,#btn-load{display:none;}
   #legend{max-width:200px;}
   .drag-handle,.lp-group-handle{pointer-events:none;}
