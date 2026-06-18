@@ -9,15 +9,15 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
   --toolbar-h:48px;--date-month-h:24px;--date-day-h:26px;--date-h:50px;
-  --row-h:28px;--add-row-h:18px;--handle-w:14px;
+  --row-h:24px;--add-row-h:18px;--handle-w:14px;
   --col-name:172px;--col-pages:46px;--col-start:76px;--col-dead:76px;--col-member:88px;
   --left-w:calc(var(--handle-w) + var(--col-name) + var(--col-pages) + var(--col-start) + var(--col-dead) + var(--col-member));
   --cell-w:26px;--panel-w:300px;
-  --bg:#f5f4f1;--surface:#fff;--surface2:#f9f8f6;--surface3:#f0efe9;
-  --border:#e2e0d8;--border2:#d4d2c8;
-  --text:#1a1916;--text2:#6b6960;--text3:#a8a69e;
+  --bg:#faf9f7;--surface:#ffffff;--surface2:#fcfbfa;--surface3:#f2f1ec;
+  --border:#d8d6cc;--border2:#c8c6ba;
+  --text:#1a1916;--text2:#5a5850;--text3:#908e86;
   --today-bg:#fff9e6;--today-line:#d4a017;
-  --weekend-bg:#e8e7e2;--nwd-bg:#dddbd4;--pinned-bg:#f7f6f3;
+  --weekend-bg:#e2e1da;--nwd-bg:#d6d4cc;--pinned-bg:#f7f6f3;
   --pin-color:#1a1916;--archive-bar-c:#6b6960;
   --status-submitted:#e8f5e9;--status-testup:#fffde7;--status-done:#f0f0ee;
 }
@@ -63,25 +63,31 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .lh-handle{width:var(--handle-w);flex-shrink:0;border-right:1px solid var(--border);}
 .lh-name{width:var(--col-name);}.lh-pages{width:var(--col-pages);}.lh-start{width:var(--col-start);}.lh-dead{width:var(--col-dead);}.lh-member{width:var(--col-member);border-right:none;}
 #left-rows{flex:1;min-height:0;overflow-x:hidden;overflow-y:auto;}
-.lp-group{border-bottom:1px solid var(--border);}
+.lp-group{}
 .lp-group.pinned-group{background:var(--pinned-bg);}
-.lp-row{height:var(--row-h);display:flex;align-items:center;border-bottom:1px solid var(--border)22;}
+.lp-row-group{display:flex;flex-direction:row;width:100%;}
+.lp-row-info{display:flex;align-items:stretch;flex:none;}
+.lp-row-info .lp-name{display:flex;align-items:flex-start;}
+.lp-row-info .lp-cell{align-self:stretch;}
+.lp-member-rows{display:flex;flex-direction:column;width:var(--col-member);}
+.lp-member-col{width:var(--col-member);flex-shrink:0;}
+.lp-row{height:var(--row-h);display:flex;align-items:center;}
 .lp-row:last-of-type{border-bottom:none;}
-.drag-handle{width:var(--handle-w);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:10px;cursor:grab;height:100%;border-right:1px solid var(--border);}
-.drag-handle.handle-hidden{visibility:hidden;}
+/* member-tag drag cursor handled inline */
 .lp-group-inner{display:flex;width:100%;}
-.lp-group-handle{width:var(--handle-w);flex-shrink:0;border-right:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:10px;cursor:grab;}
+.lp-group-handle{width:var(--handle-w);flex-shrink:0;border-right:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:10px;cursor:grab;align-self:stretch;}
 .lp-group-handle:active{cursor:grabbing;}
-.lp-group-rows{flex:1;overflow:hidden;}
+.lp-group-rows{flex:1;overflow:hidden;border-bottom:1px solid var(--border);}
 .drag-handle:active{cursor:grabbing;}
-.lp-cell{height:100%;display:flex;align-items:center;padding:0 5px;overflow:hidden;}
-.lp-name{width:var(--col-name);border-right:1px solid var(--border);font-size:12px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;transition:background .1s;}
+.lp-cell{height:100%;display:flex;align-items:flex-start;padding:3px 5px;overflow:hidden;box-sizing:border-box;}
+.lp-name{width:var(--col-name);border-right:1px solid var(--border);font-size:15px;color:var(--text);cursor:pointer;transition:background .1s;overflow:hidden;padding:0;}
 .lp-name:hover{background:var(--surface2);}
-.lp-name-wrap{display:flex;flex-direction:column;justify-content:center;width:100%;overflow:hidden;}.lp-name-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}.status-label{font-size:9px;font-family:'DM Mono',monospace;font-weight:500;opacity:.55;line-height:1.2;}
+.lp-name-wrap{display:flex;flex-direction:column;justify-content:flex-start;width:100%;overflow:hidden;padding:3px 5px;}.lp-name-text{overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;word-break:break-all;}.status-label{font-size:9px;font-family:'DM Mono',monospace;font-weight:500;opacity:.55;line-height:1.2;}
 .lp-name.second{color:transparent;pointer-events:none;}.lp-name.second:hover{background:none;}
 .lp-pages{width:var(--col-pages);border-right:1px solid var(--border);font-size:10px;font-family:'DM Mono',monospace;color:var(--text3);}
 .lp-pages.second{color:transparent;}
-.lp-start,.lp-dead{width:var(--col-start);border-right:1px solid var(--border);font-size:10px;font-family:'DM Mono',monospace;color:var(--text3);white-space:nowrap;}
+.lp-start,.lp-dead{width:var(--col-start);border-right:1px solid var(--border);font-size:10px;font-family:'DM Mono',monospace;color:var(--text3);white-space:pre-line;line-height:1.3;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;padding:3px 5px;box-sizing:border-box;}
+.lp-start.overdue{color:#c0392b;font-weight:600;}
 .lp-dead{width:var(--col-dead);}
 .lp-start.second,.lp-dead.second{color:transparent;}
 .lp-member-cell{width:var(--col-member);}
@@ -116,21 +122,23 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 
 /* grid */
 #rows-area{flex:1;background:var(--bg);min-height:100%;}
-.grid-group{border-bottom:1px solid var(--border);}
+.grid-group-wrap{display:flex;flex-direction:column;}
+.grid-group{display:flex;flex-direction:row;border-top:1px solid var(--border);}
 .grid-group.pinned-grid{background:var(--pinned-bg);}
+.grid-col{display:flex;flex-direction:column;width:var(--cell-w);flex-shrink:0;align-self:stretch;}
 .grid-row{height:var(--row-h);display:flex;}
 
-.grid-spacer{height:var(--add-row-h);}
-.grid-sep{height:24px;background:var(--surface3);border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);}
-.grid-cell{width:var(--cell-w);height:var(--row-h);flex-shrink:0;border-right:1px solid #ccc9c0;border-bottom:1px solid #ccc9c0;position:relative;cursor:crosshair;overflow:visible;transition:background .06s;}
+.grid-spacer{height:var(--add-row-h);width:100%;border-top:1px dashed transparent;}
+.grid-sep{height:24px;background:var(--surface3);border-bottom:1px solid var(--border2);min-width:100%;}
+.grid-cell{width:var(--cell-w);flex:1;min-height:var(--row-h);border-right:1px solid #ccc9c0;border-bottom:1px solid #ccc9c0;position:relative;cursor:crosshair;overflow:visible;transition:background .06s;}
 .grid-row.first-row .grid-cell{border-top:1px solid #ccc9c0;}
 .grid-cell.nwd-cell{background:var(--nwd-bg) !important;cursor:not-allowed;}
 .grid-cell.arc-cell{background:#eceae3;}
 .grid-cell.wknd{background:var(--weekend-bg);}
 .grid-cell.td{background:var(--today-bg);}
 /* pin */
-.pin-wrap{position:absolute;bottom:3px;left:0;height:14px;z-index:20;display:flex;align-items:center;}
-.pin-label-inner{height:14px;background:var(--pin-color);color:#fff;font-size:9px;font-weight:500;font-family:'DM Mono',monospace;padding:0 5px;border-radius:3px;box-shadow:0 0 0 1.5px #fff,0 1px 3px #00000022;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;width:100%;user-select:none;}
+.pin-wrap{position:absolute;bottom:2px;left:0;height:12px;z-index:20;display:flex;align-items:center;}
+.pin-label-inner{height:12px;background:var(--pin-color);color:#fff;font-size:9px;font-weight:500;font-family:'DM Mono',monospace;padding:0 5px;border-radius:3px;box-shadow:0 0 0 1.5px #fff,0 1px 3px #00000022;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;width:100%;user-select:none;}
 .pin-resize{position:absolute;right:0;top:0;bottom:0;width:6px;cursor:col-resize;z-index:21;border-radius:0 3px 3px 0;}
 .pin-resize:hover{background:#ffffff55;}
 .pin-input-wrap{position:absolute;bottom:3px;left:0;height:14px;z-index:30;}
@@ -222,7 +230,15 @@ body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--text
 .ctx-sub-menu{position:absolute;left:100%;top:0;background:var(--surface);border:1px solid var(--border2);border-radius:8px;padding:4px;min-width:160px;box-shadow:0 4px 20px #00000018;display:none;z-index:1000;}
 .ctx-sub:hover .ctx-sub-menu{display:block;}
 
-/* undo indicator */
+/* row drag reorder (#88) */
+.lp-row.row-dragging{opacity:.35;}
+.lp-row.row-drag-over-top{box-shadow:inset 0 2px 0 var(--today-line);}
+.lp-row.row-drag-over-bottom{box-shadow:inset 0 -2px 0 var(--today-line);}
+
+/* col/row highlight — header only, like spreadsheet (#86) */
+.day-cell.col-hover-hdr{background:#d8d5cb !important;color:var(--text) !important;font-weight:500;}
+.day-cell.today-hdr.col-hover-hdr{background:#e8d080 !important;}
+.lp-row.row-hover-lp .member-tag{box-shadow:inset 0 0 0 1px currentColor;}
 #undo-toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--text);color:#fff;font-size:11px;font-family:'DM Mono',monospace;padding:6px 14px;border-radius:20px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:600;}
 #undo-toast.show{opacity:1;}
 
@@ -319,8 +335,8 @@ function hexToRgb(hex){const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(
 let state={
   version:'1.0',
   meta:{createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()},
-  members:[{"id":"m1","name":"幸松","color":"#6aaa6a"},{"id":"m2","name":"伊藤","color":"#9b6dcc"},{"id":"m3","name":"高橋","color":"#e08c1a"},{"id":"m4","name":"城山","color":"#2ab5a0"},{"id":"m5","name":"濱井","color":"#e07aaa"},{"id":"m6","name":"菅原","color":"#7090c8"},{"id":"m7","name":"水野","color":"#d95555"},{"id":"m8","name":"小川","color":"#4a7fd4"},{"id":"m9","name":"武田","color":"#c8b040"},{"id":"m10","name":"小金丸","color":"#a0a0a0"}],
-  projects:[{"id":"p1","name":"メディカル在宅（追加）","pages":"","start":"","deadline":"なし","order":0,"status":"active","pinned":false,"rows":[{"id":"r1","memberId":"m4","order":0,"cells":{}},{"id":"r2","memberId":"m5","order":1,"cells":{}}]},{"id":"p2","name":"ひらばり眼科","pages":"18P","start":"2026/6公開予定","deadline":"なし","order":1,"status":"active","pinned":false,"rows":[{"id":"r3","memberId":"m3","order":0,"cells":{}},{"id":"r4","memberId":"m6","order":1,"cells":{}}]},{"id":"p3","name":"自社基本仕様書（パワポ）","pages":"","start":"","deadline":"なし","order":2,"status":"active","pinned":false,"rows":[{"id":"r5","memberId":"m1","order":0,"cells":{}},{"id":"r6","memberId":"m7","order":1,"cells":{}}]},{"id":"p4","name":"オークツリー","pages":"","start":"2024/9","deadline":"なし","order":3,"status":"active","pinned":false,"rows":[{"id":"r7","memberId":"m2","order":0,"cells":{}},{"id":"r8","memberId":"m10","order":1,"cells":{}}]},{"id":"p5","name":"浅田レディース（勝川）","pages":"","start":"2025/3","deadline":"なし","order":4,"status":"active","pinned":false,"rows":[{"id":"r9","memberId":"m3","order":0,"cells":{}},{"id":"r10","memberId":"m6","order":1,"cells":{}}]},{"id":"p6","name":"スバル東愛知販売","pages":"12P","start":"2025/2","deadline":"なし","order":5,"status":"active","pinned":false,"rows":[{"id":"r11","memberId":"m2","order":0,"cells":{}},{"id":"r12","memberId":"m10","order":1,"cells":{}}]},{"id":"p7","name":"セレンディップ","pages":"","start":"2025/4","deadline":"2026年5末公開","order":6,"status":"active","pinned":false,"rows":[{"id":"r13","memberId":"m2","order":0,"cells":{}},{"id":"r14","memberId":"m7","order":1,"cells":{}}]},{"id":"p8","name":"自社サイト","pages":"32P","start":"","deadline":"なし","order":7,"status":"active","pinned":false,"rows":[{"id":"r15","memberId":"m1","order":0,"cells":{}},{"id":"r16","memberId":"m6","order":1,"cells":{}}]},{"id":"p9","name":"浅田レディース（名古屋）","pages":"16P","start":"2025/6","deadline":"なし","order":8,"status":"active","pinned":false,"rows":[{"id":"r17","memberId":"m3","order":0,"cells":{}},{"id":"r18","memberId":"m6","order":1,"cells":{}}]},{"id":"p10","name":"福島中央どうぶつクリニック","pages":"13P","start":"2025/7","deadline":"なし","order":9,"status":"active","pinned":false,"rows":[{"id":"r19","memberId":"m3","order":0,"cells":{}},{"id":"r20","memberId":"m7","order":1,"cells":{}}]},{"id":"p11","name":"PREVENT","pages":"15P","start":"2025/7","deadline":"2026/4中旬","order":10,"status":"active","pinned":false,"rows":[{"id":"r21","memberId":"m1","order":0,"cells":{}},{"id":"r22","memberId":"m6","order":1,"cells":{}}]},{"id":"p12","name":"税理士法人エール名北会計","pages":"18P","start":"2025/8","deadline":"なし","order":11,"status":"active","pinned":false,"rows":[{"id":"r23","memberId":"m3","order":0,"cells":{}},{"id":"r24","memberId":"m7","order":1,"cells":{}}]},{"id":"p13","name":"リッシュプラス","pages":"11P","start":"2025/8","deadline":"なし","order":12,"status":"active","pinned":false,"rows":[{"id":"r25","memberId":"m2","order":0,"cells":{}},{"id":"r26","memberId":"m7","order":1,"cells":{}}]},{"id":"p14","name":"山田美術印刷","pages":"","start":"6/11","deadline":"2025/11","order":13,"status":"active","pinned":false,"rows":[{"id":"r27","memberId":"m3","order":0,"cells":{}},{"id":"r28","memberId":"m7","order":1,"cells":{}}]},{"id":"p15","name":"ビズライフ（東京）","pages":"5/16","start":"2025/11","deadline":"なし","order":14,"status":"active","pinned":false,"rows":[{"id":"r29","memberId":"m2","order":0,"cells":{}},{"id":"r30","memberId":"m6","order":1,"cells":{}}]},{"id":"p16","name":"中部システムソリューションズ","pages":"8/11","start":"2025/11","deadline":"なし","order":15,"status":"active","pinned":false,"rows":[{"id":"r31","memberId":"m2","order":0,"cells":{}},{"id":"r32","memberId":"m5","order":1,"cells":{}}]},{"id":"p17","name":"藤徳紙器","pages":"7/11","start":"2025/12","deadline":"なし","order":16,"status":"active","pinned":false,"rows":[{"id":"r33","memberId":"m4","order":0,"cells":{}},{"id":"r34","memberId":"m5","order":1,"cells":{}}]},{"id":"p18","name":"春岡会","pages":"7/9","start":"2026/1","deadline":"なし","order":17,"status":"active","pinned":false,"rows":[{"id":"r35","memberId":"m4","order":0,"cells":{}},{"id":"r36","memberId":"m7","order":1,"cells":{}}]},{"id":"p19","name":"カツベ歯科","pages":"18/21","start":"2026/1","deadline":"","order":18,"status":"active","pinned":false,"rows":[{"id":"r37","memberId":"m2","order":0,"cells":{}},{"id":"r38","memberId":"m5","order":1,"cells":{}}]},{"id":"p20","name":"オオサキメディカル（dacco）","pages":"5/10","start":"2026/1","deadline":"2026/10公開","order":19,"status":"active","pinned":false,"rows":[{"id":"r39","memberId":"m2","order":0,"cells":{}},{"id":"r40","memberId":"m5","order":1,"cells":{}}]},{"id":"p21","name":"セントラルパシフィックトレーディング（CPT）","pages":"6/11","start":"2026/1","deadline":"","order":20,"status":"active","pinned":false,"rows":[{"id":"r41","memberId":"m4","order":0,"cells":{}},{"id":"r42","memberId":"m7","order":1,"cells":{}}]},{"id":"p22","name":"浅田レディース（品川）","pages":"13/20","start":"2026/1","deadline":"なし（なるべく早く、名古屋より早く）","order":21,"status":"active","pinned":false,"rows":[{"id":"r43","memberId":"m3","order":0,"cells":{}},{"id":"r44","memberId":"m6","order":1,"cells":{}}]},{"id":"p23","name":"いわくら内科・呼吸器内科クリニック","pages":"11/14","start":"2026/2","deadline":"","order":22,"status":"active","pinned":false,"rows":[{"id":"r45","memberId":"m3","order":0,"cells":{}},{"id":"r46","memberId":"m5","order":1,"cells":{}}]},{"id":"p24","name":"pamphlet square（satellite works）","pages":"4/8","start":"2026/3","deadline":"","order":23,"status":"active","pinned":false,"rows":[{"id":"r47","memberId":"m4","order":0,"cells":{}},{"id":"r48","memberId":"m6","order":1,"cells":{}}]},{"id":"p25","name":"チラシ・ザ・ワン（satellite works）","pages":"3/7","start":"2026/4","deadline":"","order":24,"status":"active","pinned":false,"rows":[{"id":"r49","memberId":"m4","order":0,"cells":{}},{"id":"r50","memberId":"m6","order":1,"cells":{}}]},{"id":"p26","name":"ビズライフ（コーポレート）","pages":"4/7","start":"2026/3","deadline":"","order":25,"status":"active","pinned":false,"rows":[{"id":"r51","memberId":"m2","order":0,"cells":{}},{"id":"r52","memberId":"m6","order":1,"cells":{}}]},{"id":"p27","name":"岡田金属","pages":"11/15","start":"2026/3","deadline":"","order":26,"status":"active","pinned":false,"rows":[{"id":"r53","memberId":"m2","order":0,"cells":{}},{"id":"r54","memberId":"m5","order":1,"cells":{}}]},{"id":"p28","name":"伊勢パールピアホテル","pages":"13/16","start":"2026/4","deadline":"","order":27,"status":"active","pinned":false,"rows":[{"id":"r55","memberId":"m4","order":0,"cells":{}},{"id":"r56","memberId":"m5","order":1,"cells":{}}]},{"id":"p29","name":"外大","pages":"","start":"","deadline":"","order":0,"status":"active","pinned":true,"rows":[{"id":"r57","memberId":"m3","order":0,"cells":{}}]},{"id":"p30","name":"学芸","pages":"","start":"","deadline":"","order":1,"status":"active","pinned":true,"rows":[{"id":"r58","memberId":"m6","order":0,"cells":{}}]},{"id":"p31","name":"提案用","pages":"","start":"","deadline":"","order":2,"status":"active","pinned":true,"rows":[{"id":"r59","memberId":"m3","order":0,"cells":{}}]},{"id":"p32","name":"コラム","pages":"","start":"","deadline":"","order":3,"status":"active","pinned":true,"rows":[{"id":"r60","memberId":"m4","order":0,"cells":{}},{"id":"r61","memberId":"m6","order":1,"cells":{}}]},{"id":"p33","name":"過去案件修正","pages":"","start":"","deadline":"","order":4,"status":"active","pinned":true,"rows":[{"id":"r62","memberId":"m6","order":0,"cells":{}}]}],
+  members:[{"id":"m1","name":"幸松","color":"#6aaa6a"},{"id":"m2","name":"伊藤","color":"#9b6dcc"},{"id":"m3","name":"高橋","color":"#e08c1a"},{"id":"m4","name":"城山","color":"#2ab5a0"},{"id":"m5","name":"濱井","color":"#e07aaa"},{"id":"m6","name":"菅原","color":"#7090c8"},{"id":"m7","name":"水野","color":"#d95555"},{"id":"m8","name":"小川","color":"#4a7fd4"},{"id":"m9","name":"武田","color":"#c8b040"},{"id":"m10","name":"小金丸","color":"#a0a0a0"},{"id":"m13","name":"ディレクター","color":"#878787"},{"id":"m14","name":"デザイナー","color":"#878787"},{"id":"m15","name":"エンジニア","color":"#878787"}],
+  projects:[{"id":"p1","name":"メディカル在宅（追加）","pages":"","start":"","deadline":"なし","order":0,"status":"active","pinned":false,"rows":[{"id":"r1","memberId":"m4","order":0,"cells":{}},{"id":"r2","memberId":"m5","order":1,"cells":{}},{"id":"r63","memberId":"m15","order":2,"cells":{}}]},{"id":"p2","name":"ひらばり眼科","pages":"18P","start":"2026/6公開予定","deadline":"なし","order":1,"status":"active","pinned":false,"rows":[{"id":"r3","memberId":"m3","order":0,"cells":{}},{"id":"r4","memberId":"m6","order":1,"cells":{}},{"id":"r64","memberId":"m15","order":2,"cells":{}}]},{"id":"p3","name":"自社基本仕様書（パワポ）","pages":"","start":"","deadline":"なし","order":2,"status":"active","pinned":false,"rows":[{"id":"r5","memberId":"m1","order":0,"cells":{}},{"id":"r6","memberId":"m7","order":1,"cells":{}},{"id":"r65","memberId":"m15","order":2,"cells":{}}]},{"id":"p4","name":"オークツリー","pages":"","start":"2024/9","deadline":"なし","order":3,"status":"active","pinned":false,"rows":[{"id":"r7","memberId":"m2","order":0,"cells":{}},{"id":"r8","memberId":"m10","order":1,"cells":{}},{"id":"r66","memberId":"m15","order":2,"cells":{}}]},{"id":"p5","name":"浅田レディース（勝川）","pages":"","start":"2025/3","deadline":"なし","order":4,"status":"active","pinned":false,"rows":[{"id":"r9","memberId":"m3","order":0,"cells":{}},{"id":"r10","memberId":"m6","order":1,"cells":{}},{"id":"r67","memberId":"m15","order":2,"cells":{}}]},{"id":"p6","name":"スバル東愛知販売","pages":"12P","start":"2025/2","deadline":"なし","order":5,"status":"active","pinned":false,"rows":[{"id":"r11","memberId":"m2","order":0,"cells":{}},{"id":"r12","memberId":"m10","order":1,"cells":{}},{"id":"r68","memberId":"m15","order":2,"cells":{}}]},{"id":"p7","name":"セレンディップ","pages":"","start":"2025/4","deadline":"2026年5末公開","order":6,"status":"active","pinned":false,"rows":[{"id":"r13","memberId":"m2","order":0,"cells":{}},{"id":"r14","memberId":"m7","order":1,"cells":{}},{"id":"r69","memberId":"m15","order":2,"cells":{}}]},{"id":"p8","name":"自社サイト","pages":"32P","start":"","deadline":"なし","order":7,"status":"active","pinned":false,"rows":[{"id":"r15","memberId":"m1","order":0,"cells":{}},{"id":"r16","memberId":"m6","order":1,"cells":{}},{"id":"r70","memberId":"m15","order":2,"cells":{}}]},{"id":"p9","name":"浅田レディース（名古屋）","pages":"16P","start":"2025/6","deadline":"なし","order":8,"status":"active","pinned":false,"rows":[{"id":"r17","memberId":"m3","order":0,"cells":{}},{"id":"r18","memberId":"m6","order":1,"cells":{}},{"id":"r71","memberId":"m15","order":2,"cells":{}}]},{"id":"p10","name":"福島中央どうぶつクリニック","pages":"13P","start":"2025/7","deadline":"なし","order":9,"status":"active","pinned":false,"rows":[{"id":"r19","memberId":"m3","order":0,"cells":{}},{"id":"r20","memberId":"m7","order":1,"cells":{}},{"id":"r72","memberId":"m15","order":2,"cells":{}}]},{"id":"p11","name":"PREVENT","pages":"15P","start":"2025/7","deadline":"2026/4中旬","order":10,"status":"active","pinned":false,"rows":[{"id":"r21","memberId":"m1","order":0,"cells":{}},{"id":"r22","memberId":"m6","order":1,"cells":{}},{"id":"r73","memberId":"m15","order":2,"cells":{}}]},{"id":"p12","name":"税理士法人エール名北会計","pages":"18P","start":"2025/8","deadline":"なし","order":11,"status":"active","pinned":false,"rows":[{"id":"r23","memberId":"m3","order":0,"cells":{}},{"id":"r24","memberId":"m7","order":1,"cells":{}},{"id":"r74","memberId":"m15","order":2,"cells":{}}]},{"id":"p13","name":"リッシュプラス","pages":"11P","start":"2025/8","deadline":"なし","order":12,"status":"active","pinned":false,"rows":[{"id":"r25","memberId":"m2","order":0,"cells":{}},{"id":"r26","memberId":"m7","order":1,"cells":{}},{"id":"r75","memberId":"m15","order":2,"cells":{}}]},{"id":"p14","name":"山田美術印刷","pages":"","start":"6/11","deadline":"2025/11","order":13,"status":"active","pinned":false,"rows":[{"id":"r27","memberId":"m3","order":0,"cells":{}},{"id":"r28","memberId":"m7","order":1,"cells":{}},{"id":"r76","memberId":"m15","order":2,"cells":{}}]},{"id":"p15","name":"ビズライフ（東京）","pages":"5/16","start":"2025/11","deadline":"なし","order":14,"status":"active","pinned":false,"rows":[{"id":"r29","memberId":"m2","order":0,"cells":{}},{"id":"r30","memberId":"m6","order":1,"cells":{}},{"id":"r77","memberId":"m15","order":2,"cells":{}}]},{"id":"p16","name":"中部システムソリューションズ","pages":"8/11","start":"2025/11","deadline":"なし","order":15,"status":"active","pinned":false,"rows":[{"id":"r31","memberId":"m2","order":0,"cells":{}},{"id":"r32","memberId":"m5","order":1,"cells":{}},{"id":"r78","memberId":"m15","order":2,"cells":{}}]},{"id":"p17","name":"藤徳紙器","pages":"7/11","start":"2025/12","deadline":"なし","order":16,"status":"active","pinned":false,"rows":[{"id":"r33","memberId":"m4","order":0,"cells":{}},{"id":"r34","memberId":"m5","order":1,"cells":{}},{"id":"r79","memberId":"m15","order":2,"cells":{}}]},{"id":"p18","name":"春岡会","pages":"7/9","start":"2026/1","deadline":"なし","order":17,"status":"active","pinned":false,"rows":[{"id":"r35","memberId":"m4","order":0,"cells":{}},{"id":"r36","memberId":"m7","order":1,"cells":{}},{"id":"r80","memberId":"m15","order":2,"cells":{}}]},{"id":"p19","name":"カツベ歯科","pages":"18/21","start":"2026/1","deadline":"","order":18,"status":"active","pinned":false,"rows":[{"id":"r37","memberId":"m2","order":0,"cells":{}},{"id":"r38","memberId":"m5","order":1,"cells":{}},{"id":"r81","memberId":"m15","order":2,"cells":{}}]},{"id":"p20","name":"オオサキメディカル（dacco）","pages":"5/10","start":"2026/1","deadline":"2026/10公開","order":19,"status":"active","pinned":false,"rows":[{"id":"r39","memberId":"m2","order":0,"cells":{}},{"id":"r40","memberId":"m5","order":1,"cells":{}},{"id":"r82","memberId":"m15","order":2,"cells":{}}]},{"id":"p21","name":"セントラルパシフィックトレーディング（CPT）","pages":"6/11","start":"2026/1","deadline":"","order":20,"status":"active","pinned":false,"rows":[{"id":"r41","memberId":"m4","order":0,"cells":{}},{"id":"r42","memberId":"m7","order":1,"cells":{}},{"id":"r83","memberId":"m15","order":2,"cells":{}}]},{"id":"p22","name":"浅田レディース（品川）","pages":"13/20","start":"2026/1","deadline":"なし（なるべく早く、名古屋より早く）","order":21,"status":"active","pinned":false,"rows":[{"id":"r43","memberId":"m3","order":0,"cells":{}},{"id":"r44","memberId":"m6","order":1,"cells":{}},{"id":"r84","memberId":"m15","order":2,"cells":{}}]},{"id":"p23","name":"いわくら内科・呼吸器内科クリニック","pages":"11/14","start":"2026/2","deadline":"","order":22,"status":"active","pinned":false,"rows":[{"id":"r45","memberId":"m3","order":0,"cells":{}},{"id":"r46","memberId":"m5","order":1,"cells":{}},{"id":"r85","memberId":"m15","order":2,"cells":{}}]},{"id":"p24","name":"pamphlet square（satellite works）","pages":"4/8","start":"2026/3","deadline":"","order":23,"status":"active","pinned":false,"rows":[{"id":"r47","memberId":"m4","order":0,"cells":{}},{"id":"r48","memberId":"m6","order":1,"cells":{}},{"id":"r86","memberId":"m15","order":2,"cells":{}}]},{"id":"p25","name":"チラシ・ザ・ワン（satellite works）","pages":"3/7","start":"2026/4","deadline":"","order":24,"status":"active","pinned":false,"rows":[{"id":"r49","memberId":"m4","order":0,"cells":{}},{"id":"r50","memberId":"m6","order":1,"cells":{}},{"id":"r87","memberId":"m15","order":2,"cells":{}}]},{"id":"p26","name":"ビズライフ（コーポレート）","pages":"4/7","start":"2026/3","deadline":"","order":25,"status":"active","pinned":false,"rows":[{"id":"r51","memberId":"m2","order":0,"cells":{}},{"id":"r52","memberId":"m6","order":1,"cells":{}},{"id":"r88","memberId":"m15","order":2,"cells":{}}]},{"id":"p27","name":"岡田金属","pages":"11/15","start":"2026/3","deadline":"","order":26,"status":"active","pinned":false,"rows":[{"id":"r53","memberId":"m2","order":0,"cells":{}},{"id":"r54","memberId":"m5","order":1,"cells":{}},{"id":"r89","memberId":"m15","order":2,"cells":{}}]},{"id":"p28","name":"伊勢パールピアホテル","pages":"13/16","start":"2026/4","deadline":"","order":27,"status":"active","pinned":false,"rows":[{"id":"r55","memberId":"m4","order":0,"cells":{}},{"id":"r56","memberId":"m5","order":1,"cells":{}},{"id":"r90","memberId":"m15","order":2,"cells":{}}]},{"id":"p29","name":"外大","pages":"","start":"","deadline":"","order":0,"status":"active","pinned":true,"rows":[{"id":"r57","memberId":"m3","order":0,"cells":{}},{"id":"r91","memberId":"m15","order":1,"cells":{}}]},{"id":"p30","name":"学芸","pages":"","start":"","deadline":"","order":1,"status":"active","pinned":true,"rows":[{"id":"r58","memberId":"m6","order":0,"cells":{}},{"id":"r92","memberId":"m15","order":1,"cells":{}}]},{"id":"p31","name":"提案用","pages":"","start":"","deadline":"","order":2,"status":"active","pinned":true,"rows":[{"id":"r59","memberId":"m3","order":0,"cells":{}},{"id":"r93","memberId":"m15","order":1,"cells":{}}]},{"id":"p32","name":"コラム","pages":"","start":"","deadline":"","order":3,"status":"active","pinned":true,"rows":[{"id":"r60","memberId":"m4","order":0,"cells":{}},{"id":"r61","memberId":"m6","order":1,"cells":{}},{"id":"r94","memberId":"m15","order":2,"cells":{}}]},{"id":"p33","name":"過去案件修正","pages":"","start":"","deadline":"","order":4,"status":"active","pinned":true,"rows":[{"id":"r62","memberId":"m6","order":0,"cells":{}},{"id":"r95","memberId":"m15","order":1,"cells":{}}]}],
   customNonWorkingDays:[],
   removedHolidays:[],
   pins:{},
@@ -329,6 +345,35 @@ let state={
 
 
 // ── NON-WORKING DAYS ──
+function parseStartDate(startStr){
+  if(!startStr)return null;
+  const m=startStr.match(/^(\d{4})[\/\-](\d{1,2})(?:[\/\-](\d{1,2}))?/);
+  if(m)return new Date(parseInt(m[1]),parseInt(m[2])-1,m[3]?parseInt(m[3]):1);
+  const d=new Date(startStr);return isNaN(d.getTime())?null:d;
+}
+function getElapsedDays(startStr){
+  const d=parseStartDate(startStr);if(!d)return null;
+  return Math.floor((Date.now()-d.getTime())/(1000*60*60*24));
+}
+function formatStartCell(startStr){
+  if(!startStr)return '';
+  const days=getElapsedDays(startStr);
+  if(days===null||days<0)return startStr;
+  const months=Math.floor(days/30);
+  const remDays=days%30;
+  const elapsed=months>0?(months+'m '+remDays+'d'):(days+'d');
+  return startStr+'\n('+elapsed+')';
+}
+function isStartOverdue(startStr){
+  if(!startStr)return false;
+  let d;
+  const m=startStr.match(/^(\d{4})[\/\-](\d{1,2})(?:[\/\-](\d{1,2}))?/);
+  if(m){d=new Date(parseInt(m[1]),parseInt(m[2])-1,m[3]?parseInt(m[3]):1);}
+  else{d=new Date(startStr);}
+  if(isNaN(d.getTime()))return false;
+  const ago=new Date();ago.setMonth(ago.getMonth()-6);
+  return d<=ago;
+}
 function isNWD(dstr,d){
   if(state.removedHolidays.includes(dstr)) return false;
   // Use passed Date object if available, otherwise parse string with slash (local time)
@@ -350,17 +395,15 @@ let showDone=false;
 let filterMembers=new Set();
 function getMem(id){return state.members.find(m=>m.id===id)||{name:'?',color:'#aaa'};}
 
-function getStartDate(){return addD(new Date(),-30);}
+function getStartDate(){return addD(new Date(),-14);}
 function getDays(){const s=getStartDate(),days=[];for(let i=0;i<210;i++)days.push(addD(s,i));return days;}
 function isArchived(dstr){return dstr<=state.view.archiveBefore;}
 
 function visProjects(){
   let projs=state.projects;
-  // filter: show only rows belonging to selected members
+  // filter: show all rows of a project if any row matches selected members (#85)
   if(filterMembers.size>0){
-    projs=projs
-      .filter(p=>p.rows.some(r=>filterMembers.has(r.memberId)))
-      .map(p=>({...p,rows:p.rows.filter(r=>filterMembers.has(r.memberId)).map(r=>({...r,cells:{...r.cells}}))}));
+    projs=projs.filter(p=>p.rows.some(r=>filterMembers.has(r.memberId)));
   }
   const norm=projs.filter(p=>!p.pinned&&(showDone||p.status!=='done')).sort((a,b)=>a.order-b.order);
   const pin=projs.filter(p=>p.pinned&&(showDone||p.status!=='done')).sort((a,b)=>a.order-b.order);
@@ -402,16 +445,16 @@ function restoreSnap(snap){
 }
 
 function undo(){
-  if(undoStack.length===0){showToast('これ以上戻れません');return;}
+  if(undoStack.length===0){showToast('これ以上取り消せません');return;}
   redoStack.push(takeSnapshot());  // save current for redo
   restoreSnap(undoStack.pop());
-  showToast('元に戻した');
+  showToast('取り消し');
 }
 function redo(){
-  if(redoStack.length===0){showToast('これ以上進めません');return;}
+  if(redoStack.length===0){showToast('これ以上やり直せません');return;}
   undoStack.push(takeSnapshot());  // save current for undo
   restoreSnap(redoStack.pop());
-  showToast('やり直した');
+  showToast('やり直し');
 }
 
 document.addEventListener('keydown',e=>{
@@ -419,6 +462,26 @@ document.addEventListener('keydown',e=>{
   if((e.metaKey||e.ctrlKey)&&(e.key==='y'||(e.key==='z'&&e.shiftKey))){e.preventDefault();redo();}
 });
 
+
+// ── HEADER HIGHLIGHT (#86) — col=date header, row=member tag ──
+let hoveredRowId=null,hoveredDk=null;
+function applyColHighlight(dstr,on){
+  const days=getDays();
+  const idx=days.findIndex(d=>dk(d)===dstr);
+  if(idx>=0){
+    document.querySelectorAll('#day-row .day-cell')[idx]?.classList.toggle('col-hover-hdr',on);
+  }
+}
+function applyRowHighlight(rowId,on){
+  document.querySelectorAll('.lp-row').forEach(r=>{
+    if(r.dataset.rowId===rowId)r.classList.toggle('row-hover-lp',on);
+  });
+}
+function clearCrossHighlight(){
+  if(hoveredDk)applyColHighlight(hoveredDk,false);
+  if(hoveredRowId)applyRowHighlight(hoveredRowId,false);
+  hoveredRowId=null;hoveredDk=null;
+}
 
 // cell lookup map for performance
 let cellMap=new Map();
@@ -495,7 +558,48 @@ document.addEventListener('touchend',()=>{
   drag.on=false;drag.lastIdx=-1;
 });
 
-// ── PIN RESIZE ──
+// ── PIN DRAG & DROP (#89) — stash drag data in JS var (getData empty during dragover) ──
+let rowDragData=null;
+let pinDragData=null;
+
+// document-level pin D&D: pin-wrapのpointer-eventsはdragstart時に無効化済み
+// dragover: rAFスロットル＋差分チェックでDOM操作を最小化
+let _pinDragOverRaf=null,_pinHoveredCell=null;
+document.addEventListener('dragover',e=>{
+  if(!pinDragData)return;
+  e.preventDefault();
+  if(_pinDragOverRaf)return;
+  _pinDragOverRaf=requestAnimationFrame(()=>{
+    _pinDragOverRaf=null;
+    const el=document.elementFromPoint(e.clientX,e.clientY);
+    const cell=el?.closest('.grid-cell');
+    const valid=cell&&cell.dataset.rowId===pinDragData?.rowId&&!cell.classList.contains('nwd-cell');
+    const target=valid?cell:null;
+    if(target===_pinHoveredCell)return;
+    if(_pinHoveredCell){_pinHoveredCell.style.outline='';delete _pinHoveredCell.dataset.pinHover;}
+    _pinHoveredCell=target;
+    if(target){target.style.outline='2px solid var(--today-line)';target.dataset.pinHover='1';}
+  });
+});
+document.addEventListener('drop',e=>{
+  if(!pinDragData)return;
+  e.preventDefault();
+  if(_pinHoveredCell){_pinHoveredCell.style.outline='';delete _pinHoveredCell.dataset.pinHover;_pinHoveredCell=null;}
+  const el=document.elementFromPoint(e.clientX,e.clientY);
+  const cell=el?.closest('.grid-cell');
+  const toDk=cell?.dataset.dk;
+  const d=pinDragData;pinDragData=null;
+  if(!cell||cell.dataset.rowId!==d.rowId||cell.classList.contains('nwd-cell')||toDk===d.fromDk)return;
+  saveHistory();
+  const fromPins=state.pins[d.rowId]?.[d.fromDk];if(!fromPins)return;
+  const pinObj=fromPins.find(p=>p.id===d.pinId);if(!pinObj)return;
+  state.pins[d.rowId][d.fromDk]=fromPins.filter(p=>p.id!==d.pinId);
+  if(!state.pins[d.rowId][d.fromDk].length)delete state.pins[d.rowId][d.fromDk];
+  if(!state.pins[d.rowId][toDk])state.pins[d.rowId][toDk]=[];
+  state.pins[d.rowId][toDk].push(pinObj);
+  render();
+});
+
 let pinResize={on:false,pinId:null,rowId:null,startDk:null,startX:0,origSpan:1};
 document.addEventListener('mousemove',e=>{
   if(!pinResize.on)return;
@@ -627,10 +731,13 @@ function renderHeader(){
     const el=document.createElement('div');el.className='day-cell';
     if(nwd)el.classList.add('nwd');
     else if(arc)el.classList.add('arc-hdr');
-    else{
-      if(dw===6)el.classList.add('sat');else if(dw===0)el.classList.add('sun');else if(isHol(d))el.classList.add('hol');
-      if(dstr===todayStr())el.classList.add('today-hdr');
+    // ②土日・祝日の文字色は非稼働日・アーカイブに関わらず常に付与
+    if(!arc){
+      if(dw===6)el.classList.add('sat');
+      else if(dw===0)el.classList.add('sun');
+      else if(isHol(d))el.classList.add('hol');
     }
+    if(!nwd&&!arc&&dstr===todayStr())el.classList.add('today-hdr');
     el.innerHTML=`<span>${d.getDate()}</span>`;
     el.addEventListener('contextmenu',e=>{
       e.preventDefault();
@@ -655,6 +762,8 @@ function renderHeader(){
         'add-nwd':()=>{
           saveHistory();
           if(!state.customNonWorkingDays.includes(dstr))state.customNonWorkingDays.push(dstr);
+          // 土日・祝日をremovedHolidaysから除去して非稼働日に戻す
+          state.removedHolidays=state.removedHolidays.filter(x=>x!==dstr);
           render();
         },
         'rm-nwd':()=>{
@@ -677,7 +786,7 @@ function renderRows(){
 
   function renderGroup(proj,isPinned){
     const lg=document.createElement('div');
-    lg.className='lp-group'+(isPinned?' pinned-group':'');
+    lg.className='lp-group'+(isPinned?' pinned-group':'');lg.dataset.projId=proj.id;
     if(proj.status!=='active')lg.classList.add('status-'+proj.status);
 
     // Spanning handle wrapper
@@ -688,30 +797,48 @@ function renderRows(){
     lgInner.appendChild(lgHandle);lgInner.appendChild(lgRows);
     lg.appendChild(lgInner);
 
+    // 列ベース構造: 左側（info列）+ 右側（member列）
+    const rowCount=proj.rows.length;
+    const sLabel={submitted:'coding',testup:'test up'}[proj.status]||'';
+    const groupH=rowCount*parseInt(getComputedStyle(document.documentElement).getPropertyValue('--row-h')||'24');
+
+    // 左側情報列（name/pages/start/dead）- 結合セル
+    const lrInfo=document.createElement('div');lrInfo.className='lp-row-info';
+    const startOverdue=proj.start&&isStartOverdue(proj.start);
+    lrInfo.innerHTML=`
+      <div class="lp-cell lp-name"><div class="lp-name-wrap"><span class="lp-name-text" title="${proj.name}">${proj.name}</span>${sLabel?`<span class="status-label">${sLabel}</span>`:''}</div></div>
+      <div class="lp-cell lp-pages">${proj.pages||''}</div>
+      <div class="lp-cell lp-start${startOverdue?' overdue':''}">${formatStartCell(proj.start||'')}</div>
+      <div class="lp-cell lp-dead">${proj.deadline||''}</div>
+    `;
+    // イベント設定
+    const nameEl=lrInfo.querySelector('.lp-name');
+    nameEl.addEventListener('click',e=>{e.stopPropagation();showProjCtx(e,proj);});
+    nameEl.addEventListener('dblclick',e=>{e.stopPropagation();openInlineCellEdit(nameEl,()=>proj.name,v=>{if(v)proj.name=v;});});
+    lrInfo.querySelector('.lp-pages')?.addEventListener('dblclick',e=>{e.stopPropagation();const el=lrInfo.querySelector('.lp-pages');openInlineCellEdit(el,()=>proj.pages||'',v=>{proj.pages=v;});});
+    lrInfo.querySelector('.lp-start')?.addEventListener('dblclick',e=>{e.stopPropagation();const el=lrInfo.querySelector('.lp-start');openInlineCellEdit(el,()=>proj.start||'',v=>{proj.start=v;});});
+    lrInfo.querySelector('.lp-dead')?.addEventListener('dblclick',e=>{e.stopPropagation();const el=lrInfo.querySelector('.lp-dead');openInlineCellEdit(el,()=>proj.deadline||'',v=>{proj.deadline=v;});});
+    lgHandle.addEventListener('dragstart',e=>{dragProj={on:true,projId:proj.id,pinned:isPinned};e.dataTransfer.effectAllowed='move';lg.style.opacity='.4';});
+    lgHandle.addEventListener('dragend',()=>{lg.style.opacity='';dragProj.on=false;render();});
+
+    // 右側担当者列（member列のみ複数行）
+    const lrMembers=document.createElement('div');lrMembers.className='lp-member-rows';
     proj.rows.sort((a,b)=>a.order-b.order).forEach((row,ri)=>{
       const mem=getMem(row.memberId);
-      const lr2=document.createElement('div');lr2.className='lp-row';
-      const sLabel={submitted:'coding',testup:'test up'}[proj.status]||'';
-      lr2.innerHTML=`
-        <div style="display:none"></div>
-        <div class="lp-cell lp-name${ri>0?' second':''}"><div class="lp-name-wrap"><span class="lp-name-text" title="${proj.name}">${ri===0?proj.name:''}</span>${ri===0&&sLabel?`<span class="status-label">${sLabel}</span>`:''}</div></div>
-        <div class="lp-cell lp-pages${ri>0?' second':''}">${ri===0?(proj.pages||''):''}</div>
-        <div class="lp-cell lp-start${ri>0?' second':''}">${ri===0?(proj.start||''):''}</div>
-        <div class="lp-cell lp-dead${ri>0?' second':''}">${ri===0?(proj.deadline||''):''}</div>
-        <div class="lp-cell lp-member-cell"><span class="member-tag" style="color:${mem.color};background:${mem.color}18">${mem.name}</span></div>
-      `;
-      if(ri===0){
-        const nameEl=lr2.querySelector('.lp-name');
-        nameEl.addEventListener('click',e=>{e.stopPropagation();showProjCtx(e,proj);});
-        nameEl.addEventListener('dblclick',e=>{e.stopPropagation();openInlineCellEdit(nameEl,()=>proj.name,v=>{if(v)proj.name=v;});});
-        lr2.querySelector('.lp-pages')?.addEventListener('dblclick',e=>{e.stopPropagation();const el=lr2.querySelector('.lp-pages');openInlineCellEdit(el,()=>proj.pages||'',v=>{proj.pages=v;});});
-        lr2.querySelector('.lp-start')?.addEventListener('dblclick',e=>{e.stopPropagation();const el=lr2.querySelector('.lp-start');openInlineCellEdit(el,()=>proj.start||'',v=>{proj.start=v;});});
-        lr2.querySelector('.lp-dead')?.addEventListener('dblclick',e=>{e.stopPropagation();const el=lr2.querySelector('.lp-dead');openInlineCellEdit(el,()=>proj.deadline||'',v=>{proj.deadline=v;});});
-        // Handle events now on lgHandle (spanning all rows)
-        lgHandle.addEventListener('dragstart',e=>{dragProj={on:true,projId:proj.id,pinned:isPinned};e.dataTransfer.effectAllowed='move';lg.style.opacity='.4';});
-        lgHandle.addEventListener('dragend',()=>{lg.style.opacity='';dragProj.on=false;render();});
-      } // ri===0 block end
-      lr2.querySelector('.member-tag').addEventListener('click',e=>{
+      const lr2=document.createElement('div');lr2.className='lp-row';lr2.dataset.rowId=row.id;
+      lr2.innerHTML=`<div class="lp-cell lp-member-cell"><span class="member-tag" draggable="true" style="color:${mem.color};background:${mem.color}18;cursor:grab">${mem.name}</span></div>`;
+      const tag=lr2.querySelector('.member-tag');
+      // prevent click from firing after a drag operation
+      let tagDragged=false;
+      tag.addEventListener('dragstart',e=>{
+        tagDragged=false; // reset, will be set true on move
+        e.stopPropagation();
+        e.dataTransfer.effectAllowed='move';
+        rowDragData={rowId:row.id,projId:proj.id};
+        e.dataTransfer.setData('text/plain','row');
+        setTimeout(()=>{tagDragged=true;lr2.classList.add('row-dragging');},0);
+      });
+      tag.addEventListener('click',e=>{if(tagDragged){tagDragged=false;return;}
         e.stopPropagation();
         showCtx(e,`
           <div class="ctx-item" data-action="chg">✏️ 担当者を変更</div>
@@ -726,8 +853,45 @@ function renderRows(){
           del:()=>{if(proj.rows.length>1){saveHistory();proj.rows=proj.rows.filter(r=>r.id!==row.id);render();}else{alert('最後の担当者行は削除できません。');}}
         });
       });
-      lgRows.appendChild(lr2);
+      // D&D row reorder — drag from name tag (#88)
+      tag.addEventListener('dragend',()=>{
+        rowDragData=null;
+        lr2.classList.remove('row-dragging');
+        document.querySelectorAll('.lp-row').forEach(r=>r.classList.remove('row-drag-over-top','row-drag-over-bottom'));
+      });
+      lr2.addEventListener('dragover',e=>{
+        if(!rowDragData||rowDragData.projId!==proj.id)return;
+        e.preventDefault();e.stopPropagation();
+        document.querySelectorAll('.lp-row').forEach(r=>r.classList.remove('row-drag-over-top','row-drag-over-bottom'));
+        const rect=lr2.getBoundingClientRect();
+        lr2.classList.add(e.clientY<rect.top+rect.height/2?'row-drag-over-top':'row-drag-over-bottom');
+      });
+      lr2.addEventListener('dragleave',()=>{lr2.classList.remove('row-drag-over-top','row-drag-over-bottom');});
+      lr2.addEventListener('drop',e=>{
+        e.preventDefault();e.stopPropagation();
+        lr2.classList.remove('row-drag-over-top','row-drag-over-bottom');
+        const d=rowDragData;
+        if(!d||d.projId!==proj.id||d.rowId===row.id)return;
+        const rect=lr2.getBoundingClientRect();
+        const before=e.clientY<rect.top+rect.height/2;
+        saveHistory();
+        const rows=proj.rows.sort((a,b)=>a.order-b.order);
+        const fi=rows.findIndex(r=>r.id===d.rowId),ti=rows.findIndex(r=>r.id===row.id);
+        if(fi<0||ti<0)return;
+        const moved=rows.splice(fi,1)[0];
+        rows.splice(before?(ti-(fi<ti?1:0)):(ti+(fi>ti?1:0)),0,moved);
+        rows.forEach((r,i)=>r.order=i);
+        proj.rows=[...rows];
+        render();
+      });
+      lrMembers.appendChild(lr2);
     });
+
+    // lrInfoとlrMembersをlp-group-rowに組み合わせる
+    const lrGroup=document.createElement('div');lrGroup.className='lp-row-group';
+    lrGroup.appendChild(lrInfo);
+    lrGroup.appendChild(lrMembers);
+    lgRows.appendChild(lrGroup);
 
     const addHint=document.createElement('div');addHint.className='lp-add-row';addHint.textContent='＋ 担当追加';
     addHint.addEventListener('click',()=>openAddRowPanel(proj));lgRows.appendChild(addHint);
@@ -754,12 +918,13 @@ function renderRows(){
     });
 
     const gg=document.createElement('div');gg.className='grid-group'+(isPinned?' pinned-grid':'');
-    proj.rows.sort((a,b)=>a.order-b.order).forEach((row,gri)=>{
-      const mem=getMem(row.memberId);
-      const rgb=hexToRgb(mem.color);
-      const gr=document.createElement('div');gr.className='grid-row'+(gri===0?' first-row':'');
-      days.forEach((d,di)=>{
-        const dstr=dk(d),nwd=isNWD(dstr,d),arc=isArchived(dstr);
+    // グリッド側: 日付ごとに1列を生成し、その中に担当者数分のセルを縦に積む
+    days.forEach((d,di)=>{
+      const dstr=dk(d),nwd=isNWD(dstr,d),arc=isArchived(dstr);
+      const col=document.createElement('div');col.className='grid-col';
+      proj.rows.sort((a,b)=>a.order-b.order).forEach((row,gri)=>{
+        const mem=getMem(row.memberId);
+        const rgb=hexToRgb(mem.color);
         const cell=document.createElement('div');cell.className='grid-cell';
         cell.dataset.dk=dstr;cell.dataset.rowId=row.id;cell.dataset.di=di;
         if(nwd){cell.classList.add('nwd-cell');}
@@ -769,6 +934,12 @@ function renderRows(){
           if(arc)cell.classList.add('arc-cell');
           if(row.cells[dstr])cell.style.background=mem.color+'cc';
           cell.addEventListener('mouseenter',()=>{
+            if(hoveredDk!==dstr||hoveredRowId!==row.id){
+              clearCrossHighlight();
+              hoveredDk=dstr;hoveredRowId=row.id;
+              applyColHighlight(dstr,true);
+              applyRowHighlight(row.id,true);
+            }
             if(!drag.on&&!row.cells[dstr])cell.style.background=`rgba(${rgb},.10)`;
           });
           cell.addEventListener('mouseleave',()=>{
@@ -784,27 +955,38 @@ function renderRows(){
             drag={on:true,rowId:row.id,painting:!row.cells[dstr],lastIdx:parseInt(cell.dataset.di)};
             applyCell(proj,row,dstr,drag.painting,true);
           },{passive:false});
-          cell.addEventListener('dblclick',e=>{e.preventDefault();e.stopPropagation();openInlinePin(cell,row,dstr);});
           cell.addEventListener('contextmenu',e=>{
             e.preventDefault();e.stopPropagation();
-            showCtx(e,`<div class="ctx-item" data-action="bulk">📅 日数を指定して追加</div>`,{
+            const _hasPins=state.pins[row.id]?.[dstr]?.length>0;
+            const _nwd=isNWD(dstr,d)||isArchived(dstr);
+            showCtx(e,`
+              ${(!_hasPins&&!_nwd)?'<div class="ctx-item" data-action="pin">📌 ピンを追加</div><div class="ctx-sep"></div>':''}
+              <div class="ctx-item" data-action="bulk">📅 日数を指定して追加</div>
+            `,{
+              pin:()=>openInlinePin(cell,row,dstr),
               bulk:()=>openBulkAddModal(proj,row,dstr)
             });
           });
         }
-        gr.appendChild(cell);
+        col.appendChild(cell);
       });
-      gg.appendChild(gr);
-      renderRowPins(gr,row,days);
+      // ピンは最初の行(row[0])に紐付け
+      gg.appendChild(col);
     });
-    const spacer=document.createElement('div');spacer.className='grid-spacer';gg.appendChild(spacer);
-    lr.appendChild(lg);ra.appendChild(gg);
+    // ピンを別途描画
+    proj.rows.sort((a,b)=>a.order-b.order).forEach((row,gri)=>{
+      renderRowPinsCol(gg,row,days,gri);
+    });
+    const ggWrap=document.createElement('div');ggWrap.className='grid-group-wrap';ggWrap.dataset.projId=proj.id;
+    const spacer=document.createElement('div');spacer.className='grid-spacer';
+    ggWrap.appendChild(gg);ggWrap.appendChild(spacer);
+    lr.appendChild(lg);ra.appendChild(ggWrap);
   }
 
   norm.forEach(p=>renderGroup(p,false));
   if(pin.length){
     const ls=document.createElement('div');ls.id='pinned-sep';ls.textContent='固定案件';lr.appendChild(ls);
-    const gs=document.createElement('div');gs.className='grid-sep';ra.appendChild(gs);
+    const gs=document.createElement('div');gs.className='grid-sep';gs.style.width=(getDays().length*26)+'px';ra.appendChild(gs);
     pin.forEach(p=>renderGroup(p,true));
   }
   // #68: add spacer to left-rows AND rows-area so scroll bottoms match
@@ -815,21 +997,92 @@ function renderRows(){
   raSpacer.style.cssText='height:36px;';
   ra.appendChild(raSpacer);
   buildCellMap();
+  // 左ペインとグリッドの高さを同期
+  setTimeout(()=>{
+    document.querySelectorAll('.lp-group').forEach(lg=>{
+      const projId=lg.dataset.projId;
+      if(!projId)return;
+      const ggWrap=document.querySelector('.grid-group-wrap[data-proj-id="'+projId+'"]');
+      if(!ggWrap)return;
+      const lpH=lg.offsetHeight;
+      const gg=ggWrap.querySelector('.grid-group');
+      const sp=ggWrap.querySelector('.grid-spacer');
+      if(!gg||!sp)return;
+      // グリッドのgroupとspacerの現在の合計高さ
+      const ggH=lg.querySelector('.lp-group-rows')?.offsetHeight||lpH;
+      const rowsH=ggH - (lg.querySelector('.lp-add-row')?.offsetHeight||18);
+      // grid-groupを担当者行分の高さに設定
+      gg.style.height=rowsH+'px';
+      gg.style.width=(getDays().length*26)+'px';
+      gg.querySelectorAll('.grid-col').forEach(col=>{
+        col.style.height=rowsH+'px';
+      });
+      // grid-spacerを左右の高さが一致するよう調整
+      const currentTotal=gg.offsetHeight+sp.offsetHeight;
+      const diff=lpH-currentTotal;
+      sp.style.height=(sp.offsetHeight+diff)+'px';
+    });
+  },0);
 }
 
-function renderRowPins(gr,row,days){
+function renderRowPinsCol(gg,row,days,rowIdx){
+  const cols=gg.querySelectorAll('.grid-col');
+  // ── ピン描画 ──
   const rp=state.pins[row.id];if(!rp)return;
-  const cells=gr.querySelectorAll('.grid-cell');
   Object.entries(rp).forEach(([dstr,pins])=>{
     if(!pins||!pins.length)return;
     const idx=days.findIndex(d=>dk(d)===dstr);if(idx<0)return;
-    const cell=cells[idx];if(!cell||cell.classList.contains('nwd-cell'))return;
+    const col=cols[idx];if(!col)return;
+    const cells=col.querySelectorAll('.grid-cell');
+    const cell=cells[rowIdx];if(!cell||cell.classList.contains('nwd-cell'))return;
     pins.forEach(pin=>{
       const wrap=document.createElement('div');wrap.className='pin-wrap';wrap.style.width=((pin.span||1)*26)+'px';
-      wrap.innerHTML=`<div class="pin-label-inner">${pin.label}</div><div class="pin-resize"></div>`;
+      wrap.setAttribute('draggable','true');
+      wrap.innerHTML=`<div class="pin-label-inner" style="cursor:grab">${pin.label}</div><div class="pin-resize"></div>`;
+      wrap.addEventListener('mousedown',e=>{e.stopPropagation();});
+      wrap.addEventListener('click',e=>{e.stopPropagation();});
+      // pin D&D: drag from wrap (#89)
+      wrap.addEventListener('dragstart',e=>{
+        e.stopPropagation();
+        e.dataTransfer.effectAllowed='move';
+        pinDragData={pinId:pin.id,rowId:row.id,fromDk:dstr};
+        e.dataTransfer.setData('text/plain','pin');
+        // dragstart時に全pin-wrapのpointer-eventsを無効化→dragover中のelementFromPointが軽量になる
+        setTimeout(()=>{
+          wrap.style.opacity='.35';
+          document.querySelectorAll('.pin-wrap').forEach(w=>w.style.pointerEvents='none');
+        },0);
+      });
+      wrap.addEventListener('dragend',()=>{
+        wrap.style.opacity='';
+        document.querySelectorAll('.pin-wrap').forEach(w=>w.style.pointerEvents='');
+        if(_pinHoveredCell){_pinHoveredCell.style.outline='';delete _pinHoveredCell.dataset.pinHover;_pinHoveredCell=null;}
+        pinDragData=null;
+      });
       wrap.querySelector('.pin-resize').addEventListener('mousedown',e=>{
         e.preventDefault();e.stopPropagation();
         pinResize={on:true,pinId:pin.id,rowId:row.id,startDk:dstr,startX:e.clientX,origSpan:pin.span||1};
+      });
+      wrap.querySelector('.pin-label-inner').addEventListener('dblclick',e=>{
+        e.stopPropagation();e.preventDefault();
+        const origLabel=pin.label;
+        const inp=document.createElement('input');
+        inp.type='text';inp.value='';
+        inp.style.cssText='position:absolute;inset:0;width:100%;border:none;background:var(--pin-color,#888);font-size:9px;padding:0 5px;outline:none;z-index:10;color:#fff;border-radius:3px;';
+        wrap.appendChild(inp);inp.focus();
+        let committed=false;
+        function commitEdit(){
+          if(committed)return;committed=true;
+          const val=inp.value.trim();inp.remove();
+          const newLabel=val||origLabel;
+          if(newLabel!==origLabel){saveHistory();pin.label=newLabel;render();}
+        }
+        function cancelEdit(){if(committed)return;committed=true;inp.remove();}
+        inp.addEventListener('keydown',ev=>{
+          if(ev.key==='Enter'&&!ev.isComposing)commitEdit();
+          if(ev.key==='Escape')cancelEdit();
+        });
+        inp.addEventListener('blur',commitEdit);
       });
       wrap.addEventListener('contextmenu',e=>{
         e.preventDefault();e.stopPropagation();
@@ -845,11 +1098,15 @@ function renderRowPins(gr,row,days){
 function renderPinsOnly(){
   document.querySelectorAll('.pin-wrap').forEach(el=>el.remove());
   const days=getDays();
-  document.querySelectorAll('.grid-row').forEach(gr=>{
-    const cells=gr.querySelectorAll('.grid-cell');if(!cells.length)return;
-    const rowId=cells[0]?.dataset.rowId;if(!rowId)return;
-    const row=state.projects.flatMap(p=>p.rows).find(r=>r.id===rowId);if(!row)return;
-    renderRowPins(gr,row,days);
+  // v18列ベース構造: grid-group-wrap → grid-group → grid-col → grid-cell
+  document.querySelectorAll('.grid-group-wrap').forEach(ggWrap=>{
+    const gg=ggWrap.querySelector('.grid-group');if(!gg)return;
+    const projId=ggWrap.dataset.projId;
+    const proj=state.projects.find(p=>p.id===projId);if(!proj)return;
+    const visRows=proj.rows.slice().sort((a,b)=>a.order-b.order);
+    visRows.forEach((row,rowIdx)=>{
+      renderRowPinsCol(gg,row,days,rowIdx);
+    });
   });
 }
 
@@ -991,27 +1248,51 @@ function closePanel(){
 document.getElementById('panel-close').addEventListener('click',()=>closePanel());
 
 function paletteHtml(sel){
-  return `<div class="palette-grid">${PALETTE.map(c=>`<div class="pswatch${c===sel?' sel':''}" style="background:${c}" data-c="${c}"></div>`).join('')}</div>
-  <div class="hex-row"><input type="color" id="color-picker" value="${sel||PALETTE[0]}"><input type="text" id="color-hex" value="${sel||PALETTE[0]}" maxlength="7" placeholder="#000000"></div>`;
+  const safe=sel&&/^#[0-9a-fA-F]{6}$/.test(sel)?sel:PALETTE[0];
+  return `<div class="palette-grid">${PALETTE.map(c=>`<div class="pswatch${c===safe?' sel':''}" style="background:${c}" data-c="${c}"></div>`).join('')}</div>
+  <div class="hex-row"><input type="color" id="color-picker" value="${safe}"><input type="text" id="color-hex" value="${safe}" maxlength="7" placeholder="#000000"></div>`;
 }
 function bindPalette(container){
-  let picked=container.querySelector('.pswatch.sel')?.dataset.c||PALETTE[0];
-  const picker=container.querySelector('#color-picker'),hexInput=container.querySelector('#color-hex');
-  function selectColor(c){picked=c;container.querySelectorAll('.pswatch').forEach(s=>s.classList.toggle('sel',s.dataset.c===c));if(picker)picker.value=c;if(hexInput)hexInput.value=c;}
+  // 初期値: sel スウォッチ→color-hex→PALETTE[0] の優先順で決定
+  const hexInput=container.querySelector('#color-hex');
+  const picker=container.querySelector('#color-picker');
+  let picked=container.querySelector('.pswatch.sel')?.dataset.c
+    ||(hexInput?.value&&/^#[0-9a-fA-F]{6}$/.test(hexInput.value)?hexInput.value:PALETTE[0]);
+  // picker と hexInput を初期値に揃える
+  if(picker)picker.value=picked;
+  if(hexInput)hexInput.value=picked;
+  function selectColor(c){
+    if(!/^#[0-9a-fA-F]{6}$/.test(c))return;
+    picked=c;
+    container.querySelectorAll('.pswatch').forEach(s=>s.classList.toggle('sel',s.dataset.c===c));
+    if(picker)picker.value=c;
+    if(hexInput)hexInput.value=c;
+  }
   container.querySelectorAll('.pswatch').forEach(s=>s.addEventListener('click',()=>selectColor(s.dataset.c)));
   picker?.addEventListener('input',()=>selectColor(picker.value));
-  hexInput?.addEventListener('input',()=>{if(/^#[0-9a-fA-F]{6}$/.test(hexInput.value))selectColor(hexInput.value);});
+  hexInput?.addEventListener('input',()=>selectColor(hexInput.value));
   return()=>picked;
 }
 
 function projFormHtml(proj){
   const memOpts=state.members.map(m=>`<option value="${m.id}">${m.name}</option>`).join('');
+  // defaults: 担当1=ディレクター(m13), 担当2=デザイナー(m14), 担当3=エンジニア(m15)
+  const defM1=state.members.find(m=>m.id==='m13')?.id||state.members[0]?.id||'';
+  const defM2=state.members.find(m=>m.id==='m14')?.id||state.members[1]?.id||'';
+  const defM3=state.members.find(m=>m.id==='m15')?.id||'';
+  const memOptsM1=state.members.map(m=>`<option value="${m.id}"${m.id===defM1?' selected':''}>${m.name}</option>`).join('');
+  const memOptsM2=state.members.map(m=>`<option value="${m.id}"${m.id===defM2?' selected':''}>${m.name}</option>`).join('');
+  const memOptsM3=state.members.map(m=>`<option value="${m.id}"${m.id===defM3?' selected':''}>${m.name}</option>`).join('');
   return`
     <div class="fg"><label>案件名</label><input type="text" id="pname" value="${proj?.name||''}"></div>
     <div class="fg"><label>ページ数</label><input type="text" id="ppages" value="${proj?.pages||''}" placeholder="例：18P"></div>
     <div class="fg"><label>制作開始</label><input type="text" id="pstart" value="${proj?.start||''}" placeholder="例：2025/6"></div>
     <div class="fg"><label>期限</label><input type="text" id="pdead" value="${proj?.deadline||''}" placeholder="例：なし"></div>
-    ${!proj?`<div class="fg"><label>担当1</label><select id="pm1">${memOpts}</select></div><div class="fg"><label>担当2（任意）</label><select id="pm2"><option value="">なし</option>${memOpts}</select></div>`:''}
+    ${!proj?`
+      <div class="fg"><label>担当1</label><select id="pm1">${memOptsM1}</select></div>
+      <div class="fg"><label>担当2</label><select id="pm2">${memOptsM2}</select></div>
+      <div class="fg"><label>担当3（任意）</label><select id="pm3"><option value="">なし</option>${memOptsM3}</select></div>
+    `:''}
   `;
 }
 
@@ -1036,9 +1317,10 @@ function openInlineCellEdit(cellEl, getValue, setValue){
 function openAddProjPanel(){
   openPanel('＋ 案件を追加',projFormHtml(null),null,()=>{
     const name=document.getElementById('pname').value.trim();if(!name)return false;
-    const m1=document.getElementById('pm1').value,m2=document.getElementById('pm2').value;
+    const m1=document.getElementById('pm1').value,m2=document.getElementById('pm2').value,m3=document.getElementById('pm3').value;
     const rows=[{id:uid('r'),memberId:m1,order:0,cells:{}}];
     if(m2)rows.push({id:uid('r'),memberId:m2,order:1,cells:{}});
+    if(m3)rows.push({id:uid('r'),memberId:m3,order:2,cells:{}});
     state.projects.push({id:uid('p'),name,pages:document.getElementById('ppages').value.trim(),start:document.getElementById('pstart').value.trim(),deadline:document.getElementById('pdead').value.trim()||'なし',order:state.projects.filter(p=>!p.pinned).length,status:'active',pinned:false,rows});
     render();
   });
@@ -1120,13 +1402,15 @@ document.getElementById('btn-load').addEventListener('click',()=>document.getEle
 document.getElementById('file-input').addEventListener('change',e=>{
   const f=e.target.files[0];if(!f)return;
   const r=new FileReader();
-  r.onload=ev=>{try{const d=JSON.parse(ev.target.result);d.view=d.view||{archiveBefore:dk(addD(new Date(),-1)),days:210};d.customNonWorkingDays=d.customNonWorkingDays||[];d.removedHolidays=d.removedHolidays||[];Object.assign(state,d);render();}catch{alert('読込に失敗しました。');}};
+  r.onload=ev=>{try{const d=JSON.parse(ev.target.result);d.view=d.view||{archiveBefore:dk(addD(new Date(),-1)),days:210};d.customNonWorkingDays=d.customNonWorkingDays||[];d.removedHolidays=d.removedHolidays||[];Object.assign(state,d);undoStack=[];redoStack=[];render();}catch{alert('読込に失敗しました。');}};
   r.readAsText(f);e.target.value='';
 });
 
 // scroll sync — sp drives lrEl vertically only
 const sp=document.getElementById('scroll-pane'),lrEl=document.getElementById('left-rows');
 sp.addEventListener('scroll',()=>{lrEl.scrollTop=sp.scrollTop;});
+// clear cross highlight when leaving the grid area
+document.getElementById('rows-area').addEventListener('mouseleave',()=>clearCrossHighlight());
 lrEl.addEventListener('wheel',e=>{
   e.preventDefault();
   sp.scrollTop+=e.deltaY*(e.deltaMode===1?20:1);
