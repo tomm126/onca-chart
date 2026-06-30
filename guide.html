@@ -3,498 +3,268 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ONCA CHART 説明書</title>
+<title>ONCA CHART 操作マニュアル</title>
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  :root {
-    --bg: #f5f4f1;
-    --surface: #ffffff;
-    --text: #1a1916;
-    --text2: #6b6960;
-    --accent: #1a1916;
-    --border: #e2e0d8;
-    --warn: #c0392b;
-  }
-  body {
-    font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    font-size: 14px;
-    line-height: 1.7;
-  }
-  .page {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 60px 40px;
-  }
-  header {
-    border-bottom: 2px solid var(--accent);
-    padding-bottom: 24px;
-    margin-bottom: 48px;
-  }
-  .app-name {
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    color: var(--text2);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  h1 {
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-bottom: 8px;
-  }
-  .subtitle { color: var(--text2); font-size: 13px; }
-  .url-box {
-    background: var(--accent);
-    color: #fff;
-    padding: 12px 20px;
-    border-radius: 6px;
-    font-size: 13px;
-    margin-top: 16px;
-    display: inline-block;
-    letter-spacing: 0.02em;
-  }
-  .url-box a { color: #fff; text-decoration: none; }
+:root{
+  --bg:#ffffff;--surface2:#f5f5f5;--surface3:#ebebeb;
+  --border:#d0cec8;--border2:#b8b6b0;
+  --text:#1a1916;--text2:#5a5850;--text3:#908e86;
+  --accent:#3a6bbf;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:'Hiragino Sans','Noto Sans JP',sans-serif;
+  line-height:1.75;font-size:15px;
+}
+.wrap{max-width:780px;margin:0 auto;padding:48px 24px 120px;}
 
-  section { margin-bottom: 48px; }
-  h2 {
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--text2);
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 8px;
-    margin-bottom: 20px;
-  }
-  h3 {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 8px;
-    margin-top: 24px;
-  }
-  h3:first-child { margin-top: 0; }
-  p { color: var(--text); margin-bottom: 8px; }
+header.top{
+  border-bottom:1px solid var(--border);
+  padding-bottom:24px;margin-bottom:48px;
+}
+.logo{
+  font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.12em;
+  color:var(--text3);margin-bottom:12px;
+}
+h1{
+  font-size:28px;font-weight:700;margin:0 0 8px;letter-spacing:-.01em;
+}
+.subtitle{color:var(--text2);font-size:14px;margin:0;}
 
-  .step-list { list-style: none; }
-  .step-list li {
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
-  }
-  .step-list li:last-child { border-bottom: none; }
-  .step-num {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text2);
-    min-width: 24px;
-    padding-top: 2px;
-  }
+nav.toc{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:8px;padding:20px 24px;margin-bottom:56px;
+}
+nav.toc .toc-title{
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;
+  color:var(--text3);text-transform:uppercase;margin-bottom:12px;
+}
+nav.toc ol{margin:0;padding-left:20px;}
+nav.toc li{margin-bottom:4px;}
+nav.toc a{color:var(--text);text-decoration:none;font-size:14px;}
+nav.toc a:hover{color:var(--accent);}
 
-  .card-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 16px;
-  }
-  .card-title { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
-  .card-body { font-size: 12px; color: var(--text2); line-height: 1.6; }
+section{margin-bottom:56px;scroll-margin-top:24px;}
+section h2{
+  font-size:19px;font-weight:700;margin:0 0 4px;
+  display:flex;align-items:baseline;gap:10px;
+}
+section h2 .num{
+  font-family:'DM Mono',monospace;font-size:13px;color:var(--accent);
+  font-weight:500;
+}
+section .lead{color:var(--text2);font-size:13.5px;margin:0 0 20px;}
 
-  .op-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
-  .op-table th {
-    text-align: left;
-    font-size: 11px;
-    color: var(--text2);
-    border-bottom: 1px solid var(--border);
-    padding: 6px 12px 6px 0;
-    font-weight: 600;
-  }
-  .op-table td {
-    padding: 10px 12px 10px 0;
-    border-bottom: 1px solid var(--border);
-    vertical-align: top;
-  }
-  .op-table td:first-child { font-weight: 500; min-width: 180px; }
-  .op-table tr:last-child td { border-bottom: none; }
+h3{font-size:15px;font-weight:700;margin:24px 0 8px;}
+p{margin:0 0 14px;}
 
-  .kbd {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 1px 6px;
-    font-size: 11px;
-    font-family: monospace;
-    white-space: nowrap;
-  }
+table{
+  width:100%;border-collapse:collapse;margin:16px 0 8px;
+  font-size:14px;
+}
+table th,table td{
+  text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);
+}
+table th{
+  font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.04em;
+  color:var(--text3);font-weight:500;text-transform:uppercase;
+  border-bottom:1.5px solid var(--border2);
+}
 
-  .warn-box {
-    background: #fff5f5;
-    border: 1px solid #f5c6c6;
-    border-radius: 8px;
-    padding: 14px 16px;
-    margin-bottom: 12px;
-  }
-  .warn-box .warn-title {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--warn);
-    margin-bottom: 4px;
-  }
-  .warn-box p { font-size: 12px; color: #7a3030; margin: 0; }
+kbd{
+  font-family:'DM Mono',monospace;font-size:12px;
+  background:var(--surface3);border:1px solid var(--border2);
+  border-radius:4px;padding:2px 7px;color:var(--text);
+}
 
-  .info-box {
-    background: #f0f4ff;
-    border: 1px solid #c8d8f8;
-    border-radius: 8px;
-    padding: 14px 16px;
-    margin-bottom: 12px;
-  }
-  .info-box p { font-size: 12px; color: #2a4080; margin: 0; }
+.action{
+  display:inline-block;font-weight:700;color:var(--text);
+  background:var(--surface3);border-radius:4px;padding:1px 6px;
+  font-size:13.5px;
+}
 
-  .member-grid { display: flex; flex-wrap: wrap; gap: 8px; }
-  .member-tag {
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 500;
-    color: #fff;
-  }
+.tip{
+  background:var(--surface2);border-left:3px solid var(--accent);
+  border-radius:0 6px 6px 0;padding:12px 16px;margin:16px 0;
+  font-size:13.5px;color:var(--text2);
+}
 
-  .layout-fig {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 16px;
-    font-size: 12px;
-    font-family: monospace;
-    line-height: 2;
-    color: var(--text2);
-  }
-  .layout-fig .hl { color: var(--text); font-weight: 700; }
+.divider{border:none;border-top:1px solid var(--border);margin:0 0 56px;}
 
-  footer {
-    border-top: 1px solid var(--border);
-    padding-top: 24px;
-    margin-top: 48px;
-    font-size: 12px;
-    color: var(--text2);
-    display: flex;
-    justify-content: space-between;
-  }
+footer{
+  border-top:1px solid var(--border);padding-top:24px;margin-top:64px;
+  font-size:13px;color:var(--text3);
+}
+
+@media (max-width:600px){
+  .wrap{padding:32px 16px 80px;}
+  h1{font-size:22px;}
+}
 </style>
 </head>
 <body>
-<div class="page">
+<div class="wrap">
 
-  <header>
-    <div class="app-name">株式会社オンカ 社内ツール</div>
-    <h1>ONCA CHART 説明書</h1>
-    <div class="subtitle">ガントチャートで進行管理をシンプルに — 社内テスト版</div>
-    <div class="url-box"><a href="https://onca-chart-react.vercel.app" target="_blank">https://onca-chart-react.vercel.app</a></div>
-  </header>
+<header class="top">
+  <div class="logo">ONCA CHART</div>
+  <h1>操作マニュアル</h1>
+  <p class="subtitle">社内ガントチャートツールの基本的な使い方をまとめています</p>
+</header>
 
-  <!-- 画面構成 -->
-  <section>
-    <h2>00 画面の構成</h2>
-    <div class="layout-fig">
-      ┌─────────────────────────────────────────────┐<br>
-      │ <span class="hl">ツールバー</span>　TODAY　＋案件　＋メンバー　…　エクスポート │<br>
-      ├──────────────┬──────────────────────────────┤<br>
-      │　<span class="hl">左ペイン</span>　　 │　　　<span class="hl">グリッド（カレンダー）</span>　　　│<br>
-      │　案件名　　　 │　Jun　　　　Jul　　　　Aug　 │<br>
-      │　P数・期限　 │　1  2  3  4  5  6  7  8  … │<br>
-      │　担当者　　　 │　████　　　　　██████　　　 │<br>
-      │　　　　　　　 │　　　　　████　　　　████　 │<br>
-      └──────────────┴──────────────────────────────┘
-    </div>
-    <p style="font-size:12px;color:var(--text2)">色付きのセルが各担当者のスケジュールを表します。グレーのセルは土日・祝日・非稼働日です。</p>
-  </section>
+<nav class="toc">
+  <div class="toc-title">目次</div>
+  <ol>
+    <li><a href="#screen">画面の見方</a></li>
+    <li><a href="#project">案件の追加・編集</a></li>
+    <li><a href="#schedule">スケジュールの入力</a></li>
+    <li><a href="#member">担当者の操作</a></li>
+    <li><a href="#pin">ピンの操作</a></li>
+    <li><a href="#filter">フィルター・表示の絞り込み</a></li>
+    <li><a href="#nwd">非稼働日の設定</a></li>
+    <li><a href="#archive">アーカイブ</a></li>
+    <li><a href="#undo">Undo / Redo</a></li>
+    <li><a href="#export">データの保存</a></li>
+    <li><a href="#overlap">重複スケジュールの警告</a></li>
+  </ol>
+</nav>
 
-  <!-- ログイン -->
-  <section>
-    <h2>01 ログイン</h2>
-    <ol class="step-list">
-      <li><span class="step-num">1</span><span>上記URLにアクセスする</span></li>
-      <li><span class="step-num">2</span><span>「Googleでログイン」をクリック</span></li>
-      <li><span class="step-num">3</span><span>オンカのGoogleアカウントを選択してログイン</span></li>
-    </ol>
-    <div class="warn-box" style="margin-top:16px;">
-      <div class="warn-title">⚠ アクセス制限あり</div>
-      <p>登録済みのGoogleアカウントのみログインできます。ログインできない場合は菅原まで連絡してください。</p>
-    </div>
-  </section>
+<section id="screen">
+  <h2><span class="num">01</span>画面の見方</h2>
+  <table>
+    <tr><th>エリア</th><th>内容</th></tr>
+    <tr><td>左ペイン</td><td>案件名・P数・制作開始・期限・担当者を表示</td></tr>
+    <tr><td>右側グリッド</td><td>日付ごとのスケジュール表示エリア</td></tr>
+    <tr><td>今日の位置</td><td>グリッド上に縦線で表示されます</td></tr>
+    <tr><td>グレーのセル</td><td>土日・祝日（非稼働日）</td></tr>
+  </table>
+  <p>担当者タグは色分けされており、誰がどの日にアサインされているか一目で確認できます。</p>
+</section>
 
-  <!-- 基本操作 -->
-  <section>
-    <h2>02 基本操作</h2>
-    <table class="op-table">
-      <tr><th>操作</th><th>方法</th></tr>
-      <tr>
-        <td>スケジュールを引く</td>
-        <td>空白セルをクリック or ドラッグ（連続して引ける）</td>
-      </tr>
-      <tr>
-        <td>スケジュールを消す</td>
-        <td>色付きセルをクリック or ドラッグ</td>
-      </tr>
-      <tr>
-        <td>今日の位置に移動</td>
-        <td>ツールバーの「TODAY」をクリック</td>
-      </tr>
-      <tr>
-        <td>元に戻す（Undo）</td>
-        <td><span class="kbd">⌘Z</span> / <span class="kbd">Ctrl+Z</span></td>
-      </tr>
-      <tr>
-        <td>やり直す（Redo）</td>
-        <td><span class="kbd">⌘Y</span> / <span class="kbd">Ctrl+Y</span></td>
-      </tr>
-      <tr>
-        <td>左右スクロール</td>
-        <td>グリッド上でトラックパッドを横スワイプ or スクロールバー</td>
-      </tr>
-      <tr>
-        <td>上下スクロール</td>
-        <td>左ペイン上でホイール or スクロールバー</td>
-      </tr>
-    </table>
-  </section>
+<section id="project">
+  <h2><span class="num">02</span>案件の追加・編集</h2>
 
-  <!-- アーカイブバー -->
-  <section>
-    <h2>03 アーカイブバー（過去との境界）</h2>
-    <p>グリッド上に表示されるグレーの縦線です。この線より左側（過去）はグレーで表示され、スケジュールを引くことができません。</p>
-    <table class="op-table" style="margin-top:12px;">
-      <tr><th>操作</th><th>方法</th></tr>
-      <tr>
-        <td>バーを移動する</td>
-        <td>グレーの縦線 or 上部の逆三角形をドラッグ</td>
-      </tr>
-      <tr>
-        <td>特定の日付に移動</td>
-        <td>日付ヘッダーを右クリック → 「ここまでをアーカイブ」</td>
-      </tr>
-    </table>
-  </section>
+  <h3>案件を追加する</h3>
+  <p>画面左上の <span class="action">＋案件</span> ボタンを押すと入力パネルが開きます。案件名・ページ数・制作開始日・期限・担当1〜3（担当3は任意）を入力して保存してください。担当1・2はデフォルトでディレクター・デザイナーが選ばれた状態になっています。</p>
 
-  <!-- 案件操作 -->
-  <section>
-    <h2>04 案件の操作</h2>
-    <table class="op-table">
-      <tr><th>操作</th><th>方法</th></tr>
-      <tr>
-        <td>案件を追加</td>
-        <td>ツールバーの「＋ 案件」をクリック</td>
-      </tr>
-      <tr>
-        <td>案件名・P数・日程を編集</td>
-        <td>各項目をダブルクリック</td>
-      </tr>
-      <tr>
-        <td>ステータス変更・削除・固定</td>
-        <td>案件名をクリック → メニューから選択</td>
-      </tr>
-      <tr>
-        <td>並び替え</td>
-        <td>左端のハンドル（⠿）をドラッグ</td>
-      </tr>
-      <tr>
-        <td>完了案件を表示/非表示</td>
-        <td>ツールバーの「完了済みを表示」をクリック</td>
-      </tr>
-      <tr>
-        <td>最下部に固定する</td>
-        <td>案件名をクリック → 「最下部に固定」</td>
-      </tr>
-    </table>
+  <h3>案件名・P数・制作開始・期限を編集する</h3>
+  <p>該当セルを<strong>ダブルクリック</strong>すると、その場で編集できます。<kbd>Enter</kbd> で確定、<kbd>Esc</kbd> でキャンセルです。</p>
 
-    <h3>ステータスの種類</h3>
-    <div class="card-grid">
-      <div class="card">
-        <div class="card-title">進行中</div>
-        <div class="card-body">通常の進行中案件。ラベルなし。</div>
-      </div>
-      <div class="card">
-        <div class="card-title">入稿済み → <span style="font-size:11px;opacity:.6">coding</span></div>
-        <div class="card-body">案件名に「coding」と表示。</div>
-      </div>
-      <div class="card">
-        <div class="card-title">テストアップ済み → <span style="font-size:11px;opacity:.6">test up</span></div>
-        <div class="card-body">案件名に「test up」と表示。</div>
-      </div>
-      <div class="card">
-        <div class="card-title">完了</div>
-        <div class="card-body">一覧から非表示になる。「完了済みを表示」で再表示可能。</div>
-      </div>
-    </div>
-  </section>
+  <h3>案件を並び替える</h3>
+  <p>左端の「⠿」ハンドルをドラッグすると、案件全体の順序を入れ替えられます。</p>
+</section>
 
-  <!-- 担当者操作 -->
-  <section>
-    <h2>05 担当者の操作</h2>
-    <table class="op-table">
-      <tr><th>操作</th><th>方法</th></tr>
-      <tr>
-        <td>担当者を追加</td>
-        <td>案件グループ内の「＋ 担当追加」をクリック</td>
-      </tr>
-      <tr>
-        <td>担当者を変更</td>
-        <td>担当者タグをクリック → 「担当者を変更」</td>
-      </tr>
-      <tr>
-        <td>スケジュールをずらす</td>
-        <td>担当者タグをクリック → 「スケジュールをずらす」→ 日数を入力（マイナスで前倒し）</td>
-      </tr>
-      <tr>
-        <td>スケジュールをクリア</td>
-        <td>担当者タグをクリック → 「スケジュールをクリア」</td>
-      </tr>
-      <tr>
-        <td>担当者を削除</td>
-        <td>担当者タグをクリック → 「この行を削除」</td>
-      </tr>
-    </table>
-  </section>
+<section id="schedule">
+  <h2><span class="num">03</span>スケジュールの入力</h2>
 
-  <!-- 担当者フィルタ -->
-  <section>
-    <h2>06 担当者フィルタ</h2>
-    <p>特定の担当者が関わる案件だけを絞り込んで表示できます。</p>
-    <table class="op-table" style="margin-top:12px;">
-      <tr><th>操作</th><th>方法</th></tr>
-      <tr>
-        <td>絞り込む</td>
-        <td>ツールバーの「担当者フィルタ」→ メンバーを選択（複数選択可）</td>
-      </tr>
-      <tr>
-        <td>解除する</td>
-        <td>「担当者フィルタ」→ 「すべて表示」</td>
-      </tr>
-    </table>
-  </section>
+  <h3>基本の入力</h3>
+  <p>担当者の行にある日付セルを<strong>クリック</strong>すると、その日にスケジュールが入ります。もう一度クリックすると解除されます。</p>
 
-  <!-- ピン -->
-  <section>
-    <h2>07 ピン（マイルストーン）</h2>
-    <p>任意のセルにメモを追加できます。公開日・入稿日など重要なマイルストーンの記録に使います。</p>
-    <table class="op-table" style="margin-top:12px;">
-      <tr><th>操作</th><th>方法</th></tr>
-      <tr>
-        <td>ピンを追加</td>
-        <td>セルをダブルクリック → テキストを入力 → Enter</td>
-      </tr>
-      <tr>
-        <td>ピンの幅を変える</td>
-        <td>ピンの右端をドラッグ</td>
-      </tr>
-      <tr>
-        <td>ピンを削除</td>
-        <td>ピンを右クリック</td>
-      </tr>
-    </table>
-  </section>
+  <h3>連続して入力する</h3>
+  <p>セルを<strong>クリックしたままドラッグ</strong>すると、ドラッグした範囲のセルがまとめて入力されます。</p>
 
-  <!-- 非稼働日 -->
-  <section>
-    <h2>08 非稼働日の設定</h2>
-    <p>土日・祝日以外に、任意の日を非稼働日（グレー）に設定できます。</p>
-    <table class="op-table" style="margin-top:12px;">
-      <tr><th>操作</th><th>方法</th></tr>
-      <tr>
-        <td>非稼働日に設定</td>
-        <td>日付ヘッダーを右クリック → 「非稼働日に設定」</td>
-      </tr>
-      <tr>
-        <td>非稼働日を解除</td>
-        <td>日付ヘッダーを右クリック → 「非稼働日を解除」</td>
-      </tr>
-    </table>
-    <div class="info-box" style="margin-top:12px;">
-      <p>非稼働日のセルにはスケジュールを引けません。ただしデータは保持されるため、解除すると元のスケジュールが復元されます。</p>
-    </div>
-  </section>
+  <h3>日数を指定して入力する</h3>
+  <p>セルを<strong>右クリック</strong>→「📅 日数を指定して追加」を選ぶと、指定した日数分のスケジュールを自動で入力できます。土日・祝日はカウントされず、実働日数分だけ埋まります（例：10日と指定すると、土日を除いた実働10日分）。</p>
 
-  <!-- 日数指定追加 -->
-  <section>
-    <h2>09 日数指定でスケジュールを一括追加</h2>
-    <p>ドラッグ以外の方法で、指定した日数分のスケジュールをまとめて追加できます。</p>
-    <table class="op-table" style="margin-top:12px;">
-      <tr><th>操作</th><th>方法</th></tr>
-      <tr>
-        <td>開始日から一括追加</td>
-        <td>セルを右クリック → 「日数を指定して追加」→ 日数を入力</td>
-      </tr>
-    </table>
-    <div class="info-box" style="margin-top:12px;">
-      <p>土日・祝日・非稼働日はスキップして追加されます。</p>
-    </div>
-  </section>
+  <h3>スケジュールをまとめてずらす</h3>
+  <p>担当者タグを<strong>クリック</strong>→「⇄ スケジュールをずらす」で、日数を指定して前後にずらせます（マイナスで前倒し）。</p>
+</section>
 
-  <!-- メンバー -->
-  <section>
-    <h2>10 メンバー</h2>
-    <div class="member-grid">
-      <span class="member-tag" style="background:#6aaa6a">幸松</span>
-      <span class="member-tag" style="background:#9b6dcc">伊藤</span>
-      <span class="member-tag" style="background:#e08c1a">高橋</span>
-      <span class="member-tag" style="background:#2ab5a0">城山</span>
-      <span class="member-tag" style="background:#e07aaa">濱井</span>
-      <span class="member-tag" style="background:#7090c8">菅原</span>
-      <span class="member-tag" style="background:#d95555">水野</span>
-      <span class="member-tag" style="background:#4a7fd4">小川</span>
-      <span class="member-tag" style="background:#c8b040">武田</span>
-      <span class="member-tag" style="background:#a0a0a0">小金丸</span>
-      <span class="member-tag" style="background:#e8a060">堀口</span>
-      <span class="member-tag" style="background:#5a9090">北山</span>
-      <span class="member-tag" style="background:#cccccc;color:#333">ディレクター</span>
-      <span class="member-tag" style="background:#cccccc;color:#333">デザイナー</span>
-    </div>
-    <p style="margin-top:12px;font-size:12px;color:var(--text2)">メンバーの追加・編集・削除はツールバーの「＋ メンバー」から行えます。</p>
-  </section>
+<section id="member">
+  <h2><span class="num">04</span>担当者の操作</h2>
 
-  <!-- エクスポート -->
-  <section>
-    <h2>11 データのエクスポート</h2>
-    <p>ツールバーの「エクスポート」をクリックすると <code>onca-chart.json</code> としてダウンロードされます。</p>
-    <div class="info-box" style="margin-top:12px;">
-      <p>データはクラウド（Firebase）に自動保存されます。複数人が同時に編集してもリアルタイムで同期されるため、手動での保存操作は不要です。</p>
-    </div>
-  </section>
+  <h3>担当者を追加する</h3>
+  <p>案件内の「＋担当追加」をクリックすると、その案件に新しい担当者行を追加できます。</p>
 
-  <!-- 既知の不具合 -->
-  <section>
-    <h2>12 既知の不具合・制限事項</h2>
-    <div class="warn-box">
-      <div class="warn-title">ピンの重複作成</div>
-      <p>同じセルに複数のピンを作成できてしまいます。重複した場合はピンを右クリックで削除してから再作成してください。</p>
-    </div>
-    <div class="warn-box">
-      <div class="warn-title">固定案件の区切り線</div>
-      <p>「固定案件」の区切り線がアーカイブバーより右に伸びない場合があります。表示上の問題で、データには影響ありません。</p>
-    </div>
-    <div class="info-box">
-      <p>不具合・要望は菅原まで連絡してください。順次対応します。</p>
-    </div>
-  </section>
+  <h3>担当者を変更する</h3>
+  <p>担当者タグを<strong>クリック</strong>→「✏️ 担当者を変更」で別の人に変更できます。</p>
 
-  <footer>
-    <span>ONCA CHART 説明書 v2.2</span>
-    <span>2026年6月 作成</span>
-  </footer>
+  <h3>担当者の順序を入れ替える</h3>
+  <p>担当者名を<strong>ドラッグ</strong>すると、同じ案件内で順番を入れ替えられます（別の案件への移動はできません）。</p>
+
+  <h3>担当者のスケジュールをクリアする</h3>
+  <p>担当者タグを<strong>クリック</strong>→「🧹 スケジュールをクリア」で、その担当者の全スケジュールを一括削除できます。</p>
+</section>
+
+<section id="pin">
+  <h2><span class="num">05</span>ピンの操作</h2>
+  <p class="lead">ピンは「テストアップ」「公開」など、1日に対するメモのような付箋機能です。</p>
+
+  <h3>ピンを追加する</h3>
+  <p>セルを<strong>右クリック</strong>→「📌 ピンを追加」でラベルを入力すると追加されます。入力した文字数に応じて自動的に幅が調整されます。</p>
+
+  <h3>ピンを編集する</h3>
+  <p>ピンを<strong>ダブルクリック</strong>すると、その場でラベルを編集できます。</p>
+
+  <h3>ピンの幅を変える</h3>
+  <p>ピンの右端をドラッグすると、表示する日数（幅）を調整できます。</p>
+
+  <h3>ピンを移動する</h3>
+  <p>ピンをドラッグすると、同じ担当者の別の日付に移動できます。</p>
+
+  <h3>ピンを削除する</h3>
+  <p>ピンを<strong>右クリック</strong>→「✕ ピンを削除」で削除できます。</p>
+</section>
+
+<section id="filter">
+  <h2><span class="num">06</span>フィルター・表示の絞り込み</h2>
+
+  <h3>担当者で絞り込む</h3>
+  <p>ツールバーの「担当者フィルタ」から特定のメンバーにチェックを入れると、そのメンバーが含まれる案件だけが表示されます（案件単位での絞り込みのため、同じ案件の他の担当者の行も表示されます）。</p>
+
+  <h3>完了済み案件の表示・非表示</h3>
+  <p>「完了済みを表示」ボタンで切り替えられます。</p>
+</section>
+
+<section id="nwd">
+  <h2><span class="num">07</span>非稼働日の設定</h2>
+
+  <h3>特定の日を非稼働日にする</h3>
+  <p>日付ヘッダーを<strong>右クリック</strong>→「🚫 非稼働日に設定」</p>
+
+  <h3>非稼働日を解除する</h3>
+  <p>非稼働日になっている日付ヘッダーを<strong>右クリック</strong>→「✓ 非稼働日を解除」</p>
+</section>
+
+<section id="archive">
+  <h2><span class="num">08</span>アーカイブ</h2>
+  <p class="lead">過去の完了した期間をグレーアウトして区別する機能です。</p>
+
+  <h3>アーカイブの境界を動かす</h3>
+  <p>グリッド上部にある境界線（アーカイブバー）をドラッグして移動できます。</p>
+
+  <h3>特定の日付までをアーカイブする</h3>
+  <p>日付を<strong>右クリック</strong>→「🗂 ここまでをアーカイブ」</p>
+
+  <div class="tip">アーカイブされた期間にはスケジュールを入力できません。</div>
+</section>
+
+<section id="undo">
+  <h2><span class="num">09</span>Undo / Redo</h2>
+  <p>操作を間違えた場合は元に戻せます。</p>
+  <table>
+    <tr><th>操作</th><th>キー</th></tr>
+    <tr><td>元に戻す</td><td><kbd>Ctrl + Z</kbd>（Macは <kbd>Cmd + Z</kbd>）</td></tr>
+    <tr><td>やり直す</td><td><kbd>Ctrl + Shift + Z</kbd>（Macは <kbd>Cmd + Shift + Z</kbd>）</td></tr>
+  </table>
+  <p style="margin-top:8px;">直近50件までの操作を記憶しています。</p>
+</section>
+
+<section id="export">
+  <h2><span class="num">10</span>データの保存</h2>
+  <p>画面右上の「エクスポート」ボタンで、現在のデータをJSONファイルとしてダウンロードできます。バックアップとして定期的に取得することをおすすめします。</p>
+</section>
+
+<section id="overlap">
+  <h2><span class="num">11</span>重複スケジュールの警告</h2>
+  <p>同じ担当者が、同じ日に3件以上のスケジュールを持っている場合、該当するセルに黒枠と斜線が表示され、ひと目で重複に気づけるようになっています。セルにマウスを乗せると、何件重複しているか確認できます。</p>
+</section>
+
+<hr class="divider">
+
+<footer>
+  操作で分からないことがあれば、菅原までお気軽にお問い合わせください。
+</footer>
 
 </div>
 </body>
